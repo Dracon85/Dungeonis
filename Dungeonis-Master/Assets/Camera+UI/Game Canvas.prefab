@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 222303096906355758}
   - component: {fileID: 114951094027350426}
   m_Layer: 5
-  m_Name: 'Text: Press Y to flip camera'
+  m_Name: Instructions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -213,9 +213,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Press Q to Flip camera!
-
-    Click on Enemies when close to damage!'
+  m_Text: Hold right mouse button to pan camera. Scroll wheel to zoom.
 --- !u!222 &222303096906355758
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -241,7 +239,7 @@ Canvas:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1653876244793134}
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
@@ -250,6 +248,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
