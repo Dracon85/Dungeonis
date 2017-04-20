@@ -101,6 +101,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!33 &33156162372314080
 MeshFilter:
@@ -108,7 +109,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1793190728411820}
-  m_Mesh: {fileID: 4300000, guid: a2fa95269805db746a43f0c2b4d770dc, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 9187313938f92284eabbbfdf544cd7dd, type: 3}
 --- !u!65 &65737491423722378
 BoxCollider:
   m_ObjectHideFlags: 1
