@@ -5,11 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/CombatSandbox/CombatSandbox.unity
-  - enabled: 0
-    path: Assets/Dungeon1/Dungeon1.unity
   - enabled: 1
-    path: Assets/Levels_Scenes/TrialDungeon.unity
+    path: Assets/Levels_Scenes/LoadingScene.unity
+    guid: b970c4d36bb12274fb77b32108ccd05d
   - enabled: 1
     path: Assets/Levels_Scenes/Town1.unity
+    guid: a8c08488251eaa846aa244f651766ba7
+  - enabled: 1
+    path: Assets/Levels_Scenes/TrialDungeon.unity
+    guid: 6dcf32e735522384ebf67a43c2fac948
