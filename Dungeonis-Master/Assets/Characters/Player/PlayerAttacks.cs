@@ -38,6 +38,7 @@ public class PlayerAttacks : MonoBehaviour {
 					GameObject newProjectile = Instantiate(projectileToUse, projectileSocket.transform.position, Quaternion.identity);
 					//set last hit time
 					lastHitTime = Time.time;
+
 					Projectile projectileComponent = newProjectile.GetComponent<Projectile>();
 
 					projectileComponent.SetDamage(damagePerShot);
