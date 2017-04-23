@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace RPG.UtilScripts{
 public class UnlockDoor	: MonoBehaviour
 {
 	// could drag your key gameobjects into the inspector to set them
@@ -26,4 +27,5 @@ public class UnlockDoor	: MonoBehaviour
 		if(KeysToDoorRemaining.Count <=0)
 			Destroy(gameObject);
 	}
+}
 }

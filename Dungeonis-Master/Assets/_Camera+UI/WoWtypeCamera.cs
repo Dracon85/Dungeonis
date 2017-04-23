@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace RPG.CameraUI{
 public class WoWtypeCamera
 	: MonoBehaviour
 {
@@ -154,4 +155,5 @@ public class WoWtypeCamera
 			angle -= 360;
 		return Mathf.Clamp(angle, min, max);
 	}
+}
 }

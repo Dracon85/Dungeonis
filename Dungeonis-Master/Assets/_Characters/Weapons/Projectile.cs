@@ -1,7 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//TODO consider rewiring...
+using RPG.UtilScripts;
 
+namespace RPG.Weapons{
 public class Projectile
 	: MonoBehaviour
 {
@@ -37,3 +40,4 @@ public class Projectile
 			(damageableComponent as IDamageable).TakeDamage (damageCaused);
 		}
 	}
+}

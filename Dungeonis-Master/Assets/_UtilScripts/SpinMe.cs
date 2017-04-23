@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace RPG.UtilScripts{
 public class SpinMe
 	: MonoBehaviour
 {
@@ -24,4 +25,5 @@ public class SpinMe
 		float zDegreesPerFrame = Time.deltaTime/60*360*zRotationsPerMinute;
 		transform.RotateAround (transform.position, transform.forward, zDegreesPerFrame);
 	}
+}
 }

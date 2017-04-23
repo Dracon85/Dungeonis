@@ -2,7 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+//TODO consider rewiring...
+using RPG.CameraUI;
+using RPG.UtilScripts;
+using RPG.Weapons;
 
+namespace RPG.Characters{
 public class Player
 	: MonoBehaviour, IDamageable
 {
@@ -115,4 +120,5 @@ public class Player
 			}
 		}
 	}
+}
 }

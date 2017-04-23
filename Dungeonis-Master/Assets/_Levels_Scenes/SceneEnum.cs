@@ -6,9 +6,11 @@
 /// <summary>
 /// An enum of the Scenes which can be found in File -> Build Settings -> Scenes in Build
 /// </summary>
+namespace LevelManager{
 public enum SceneIndexes
 {
 	LoadingScene,
 	Town1,
 	TrialDungeon
+}
 }
