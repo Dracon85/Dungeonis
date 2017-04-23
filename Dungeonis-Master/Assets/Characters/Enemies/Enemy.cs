@@ -24,6 +24,8 @@ public class Enemy
 	public void TakeDamage(float damage)
 	{
 		currentHealthPoints = Mathf.Clamp (currentHealthPoints-damage, 0f, maxHealthPoints);
+		//enemies now chase when damaged. more hits =farther chase
+		blueAggroRadius += 20;
 
 		if (currentHealthPoints <= 0)
 			Destroy (gameObject);
