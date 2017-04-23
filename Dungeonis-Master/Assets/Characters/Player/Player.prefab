@@ -2214,12 +2214,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a5b204926e74b4285f1cb100526cdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealthPoints: 150
-  playerAtkPower: 20
-  minTimeBetweenHits: 0.5
-  maxAttackRange: 3
-  enemyLayer: 9
-  weaponInUse: {fileID: 11400000, guid: b37ee8239f374a041bcf74bdf869d3e9, type: 2}
+  _maxHealthPoints: 100
+  _playerAtkPower: 10
+  _minTimeBetweenHits: 0.5
+  _maxAttackRange: 2
+  _enemyLayer: 9
+  _respawnPoint: {fileID: 0}
+  _weaponInUse: {fileID: 11400000, guid: b37ee8239f374a041bcf74bdf869d3e9, type: 2}
 --- !u!114 &114449325841578880
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2276,7 +2277,7 @@ MonoBehaviour:
   projectileSocket: {fileID: 1506810867622078}
   projectileToUse: {fileID: 1350393961698862, guid: 6875dc528bae20e479f96c3b7cae4e3c,
     type: 2}
-  damagePerShot: 5
+  damagePerShot: 10
   attackDelay: 0.5
 --- !u!136 &136372312264689832
 CapsuleCollider:

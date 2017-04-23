@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4788421035075854}
   - component: {fileID: 96577155971068298}
-  m_Layer: 11
+  m_Layer: 14
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 135889482090461418}
   - component: {fileID: 54468475436827100}
   - component: {fileID: 114106835782209712}
-  m_Layer: 11
+  m_Layer: 14
   m_Name: BasicRangedAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
