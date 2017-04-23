@@ -68,7 +68,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1097055137270180}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.49, y: 0, z: 13.64}
+  m_LocalPosition: {x: 12.82, y: 0, z: 13.64}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4067012269439160}
@@ -148,21 +148,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6a80ffaca7db094880787cfa68863a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  targetHeight: 0.3
-  distance: 1.5
-  offsetFromWall: 0.1
-  maxDistance: 4.5
-  minDistance: 0.2
-  speedDistance: 5
+  TargetHeight: 0.4
+  Distance: 5
+  OffsetFromWall: 0.1
+  MaxDistance: 5
+  MinDistance: 0.6
+  SpeedDistance: 5
   xSpeed: 200
   ySpeed: 200
   yMinLimit: -40
   yMaxLimit: 80
-  zoomRate: 40
-  rotationDampening: 3
-  zoomDampening: 5
-  collisionLayers:
+  ZoomRate: 40
+  RotationDampening: 3
+  ZoomDampening: 5
+  CollisionLayers:
     serializedVersion: 2
     m_Bits: 4294967295
 --- !u!114 &114674863813391292
