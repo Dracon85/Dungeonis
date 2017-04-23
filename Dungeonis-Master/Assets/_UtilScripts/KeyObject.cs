@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace RPG.UtilScripts{
 public class KeyObject: MonoBehaviour
 {
 	public UnlockDoor doorThisIsFor;
@@ -10,4 +11,5 @@ public class KeyObject: MonoBehaviour
 	{
 		doorThisIsFor.KeyUsed(this.gameObject);
 	}
+}
 }

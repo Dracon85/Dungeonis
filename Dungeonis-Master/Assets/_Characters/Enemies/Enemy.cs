@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.Characters.ThirdPerson;
+//TODO consider rewiring...
+using RPG.UtilScripts;
+using RPG.Weapons;
 
+namespace RPG.Characters{
 public class Enemy
 	: MonoBehaviour, IDamageable
 {
@@ -90,4 +94,5 @@ public class Enemy
 		Gizmos.color= new Color(255,0,0,.5f);
 		Gizmos.DrawWireSphere (transform.position,redAttackRange);
 	}
+}
 }

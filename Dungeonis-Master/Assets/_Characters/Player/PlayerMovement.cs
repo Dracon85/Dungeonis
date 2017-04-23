@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityStandardAssets.Characters.ThirdPerson;
 
+namespace RPG.Characters{
 [RequireComponent(typeof(ThirdPersonCharacter))]
 public class PlayerMovement
 	: MonoBehaviour
@@ -48,4 +49,5 @@ public class PlayerMovement
 			_jump = false;
 		}
 	}
+}
 }

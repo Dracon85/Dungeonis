@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace RPG.CameraUI{
 [RequireComponent(typeof(CameraRaycaster))]
 public class CursorAffordance
 	: MonoBehaviour
@@ -40,4 +41,5 @@ public class CursorAffordance
 				return;
 		}
 	}
+}
 }

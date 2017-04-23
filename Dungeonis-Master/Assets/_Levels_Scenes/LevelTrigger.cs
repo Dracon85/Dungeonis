@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+namespace LevelManager{
 public class LevelTrigger
 	: MonoBehaviour
 {
@@ -9,4 +10,5 @@ public class LevelTrigger
 	{
 		LoadingScreenManager.LoadScene((int)LoadSceneName);
 	}
+}
 }

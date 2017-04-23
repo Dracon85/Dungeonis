@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+namespace LevelManager{
 public class LoadingScreenManager
 	: MonoBehaviour
 {
@@ -145,4 +146,5 @@ public class LoadingScreenManager
 		Loading,
 		FinishedLoading
 	}
+}
 }

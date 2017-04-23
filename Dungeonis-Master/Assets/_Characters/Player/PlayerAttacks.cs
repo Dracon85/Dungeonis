@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RPG.Weapons;
 
+namespace RPG.Characters{
 public class PlayerAttacks : MonoBehaviour {
 
 	//tempoary till we get abilities set up properly. TODO apply to an ability array size of 10
@@ -54,4 +56,5 @@ public class PlayerAttacks : MonoBehaviour {
 
 		}
 	}
+}
 }
