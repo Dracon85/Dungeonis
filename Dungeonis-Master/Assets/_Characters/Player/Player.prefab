@@ -2219,8 +2219,11 @@ MonoBehaviour:
   _minTimeBetweenHits: 0.5
   _maxAttackRange: 2
   _enemyLayer: 9
-  _respawnPoint: {fileID: 0}
+  _respawnPoint: {fileID: 1389788080460242, guid: 2f1b3a3cb4909524085c4f9c3409a2b3,
+    type: 2}
   _weaponInUse: {fileID: 11400000, guid: b37ee8239f374a041bcf74bdf869d3e9, type: 2}
+  animatorOverrideController: {fileID: 22100000, guid: f0f11e47b01c4a041b2290847ac5631b,
+    type: 2}
 --- !u!114 &114449325841578880
 MonoBehaviour:
   m_ObjectHideFlags: 1

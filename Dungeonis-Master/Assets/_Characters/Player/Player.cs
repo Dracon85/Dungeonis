@@ -13,12 +13,12 @@ public class Player
 {
 	[SerializeField] private float _maxHealthPoints    = 100f;
 	[SerializeField] private float _playerAtkPower     = 10f;
-	[SerializeField] private float _minTimeBetweenHits = 0.5f;
-	[SerializeField] private float _maxAttackRange     = 2f;
 	[SerializeField] private int _enemyLayer           = 9;
 	[SerializeField] private GameObject _respawnPoint;
 	[SerializeField] private Weapon _weaponInUse;
+	[SerializeField] AnimatorOverrideController animatorOverrideController;
 
+	Animator animator;
 	private float _currentHealthPoints;
 	private float _lastHitTime = 0f;
 	private CameraRaycaster _cameraRaycaster;
@@ -55,10 +55,28 @@ public class Player
 	private void Start()
 	{
 		_cameraRaycaster                            = FindObjectOfType<CameraRaycaster>();
-		_cameraRaycaster.notifyMouseClickObservers += OnMouseClick;
-		_currentHealthPoints                        = _maxHealthPoints;
+		RegisterForMouseClick ();
+		SetCurrentMaxHealth ();
 		PutWeaponInHand();
+		OverrideAnimatorController ();
 	}
+
+		void RegisterForMouseClick ()
+		{
+			_cameraRaycaster.notifyMouseClickObservers += OnMouseClick;
+		}
+
+		void SetCurrentMaxHealth ()
+		{
+			_currentHealthPoints = _maxHealthPoints;
+		}
+
+		private void OverrideAnimatorController ()
+		{
+			animator = GetComponent<Animator>();
+			animator.runtimeAnimatorController = animatorOverrideController;
+			animatorOverrideController ["DEFAULT ATTACK"] = _weaponInUse.GetAttackAnimClip();//TODO remove const/string ref
+		}
 
 	/// <summary>
 	/// Determines whether the player is dead.
@@ -103,22 +121,28 @@ public class Player
 	/// <param name="raycastHit">The raycast hit.</param>
 	/// <param name="layerHit">The layer hit.</param>
 	private void OnMouseClick (RaycastHit raycastHit, int layerHit)
-	{
-		if (layerHit.Equals(_enemyLayer))
 		{
-			GameObject enemy = raycastHit.collider.gameObject;
+			if (layerHit.Equals (_enemyLayer)) {
+				GameObject enemy = raycastHit.collider.gameObject;
 
-			if((enemy.transform.position-transform.position).magnitude > _maxAttackRange)
-				return;
+				if (IsTargetInRange (enemy)) {
+					AttackTarget (enemy);
+				}
+			}
+		}
+		private void AttackTarget(GameObject target){
+			var enemyComponent = target.GetComponent<Enemy>();
 
-			var enemyComponent = enemy.GetComponent<Enemy>();
-
-			if ((Time.time - _lastHitTime) > _minTimeBetweenHits)
+			if ((Time.time - _lastHitTime) > _weaponInUse.GetMinTimeBetweenHits())
 			{
+				animator.SetTrigger ("Attack");//TODO make const
 				enemyComponent.TakeDamage(_playerAtkPower);
 				_lastHitTime = Time.time;
 			}
 		}
-	}
+		private bool IsTargetInRange (GameObject target){
+			float distanceToTarget=(target.transform.position-transform.position).magnitude;
+			return distanceToTarget <= _weaponInUse.GetMaxAttackRange ();
+}
 }
 }

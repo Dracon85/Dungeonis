@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced7e1c3d768cbe42995048dadc35874, type: 3}
+  m_Name: Staff
+  m_EditorClassIdentifier: 
+  gripTransform: {fileID: 4287142717538346, guid: 006f8163da4c25d4890c172e39f0db54,
+    type: 2}
+  weaponPrefab: {fileID: 1474772641031822, guid: 3af150048b1a42445809e62fec02e8a3,
+    type: 2}
+  attackAnimation: {fileID: 7400000, guid: 1315bcd7509173f44bc6655b2673dd4d, type: 3}
+  _minTimeBetweenHits: 1
+  _maxAttackRange: 4
