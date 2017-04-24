@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4345656102424442}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Grimskull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 33156162372314080}
   - component: {fileID: 23909059905909060}
   - component: {fileID: 65737491423722378}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Grimskull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
