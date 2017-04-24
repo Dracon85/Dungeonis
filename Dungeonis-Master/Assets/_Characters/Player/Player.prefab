@@ -2216,8 +2216,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealthPoints: 100
   _playerAtkPower: 10
-  _minTimeBetweenHits: 0.5
-  _maxAttackRange: 2
   _enemyLayer: 9
   _respawnPoint: {fileID: 1389788080460242, guid: 2f1b3a3cb4909524085c4f9c3409a2b3,
     type: 2}
@@ -2288,7 +2286,7 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1982944527517526}
-  m_Material: {fileID: 13400000, guid: c2815a7ab32e42c4bb42f59caacb8ec1, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.24

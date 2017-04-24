@@ -7742,6 +7742,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 136372312264689832, guid: db5afbb1dde9cfd419b77bf7e20ab915,
+        type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: c2815a7ab32e42c4bb42f59caacb8ec1,
+        type: 2}
     - target: {fileID: 114212037352944060, guid: db5afbb1dde9cfd419b77bf7e20ab915,
         type: 2}
       propertyPath: _weaponInUse
