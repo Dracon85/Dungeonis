@@ -12,6 +12,7 @@ public class Projectile
 	[SerializeField] float projectileSpeed;
 	//inspectable to see who shot the projectile when paused
 	[SerializeField] GameObject shooter;
+
 	public float projectileDuration=5f;
 	float damageCaused;
 

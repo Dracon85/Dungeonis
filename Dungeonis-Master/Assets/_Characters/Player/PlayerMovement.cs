@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityStandardAssets.Characters.ThirdPerson;
 
 namespace RPG.Characters{
 [RequireComponent(typeof(ThirdPersonCharacter))]
