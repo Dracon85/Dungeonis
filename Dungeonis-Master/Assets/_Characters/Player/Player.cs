@@ -11,8 +11,8 @@ namespace RPG.Characters{
 public class Player
 	: MonoBehaviour, IDamageable
 {
-	[SerializeField] private float _maxHealthPoints    = 100f;
-	[SerializeField] private float _playerAtkPower     = 10f;
+	public float _playerAtkPower     = 10f;
+	[SerializeField] private float _maxHealthPoints    = 100f;	
 	[SerializeField] private int _enemyLayer           = 9;
 	[SerializeField] private GameObject _respawnPoint;
 	[SerializeField] private Weapon _weaponInUse;

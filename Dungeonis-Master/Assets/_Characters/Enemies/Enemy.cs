@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityStandardAssets.Characters.ThirdPerson;
 //TODO consider rewiring...
 using RPG.UtilScripts;
 using RPG.Weapons;
