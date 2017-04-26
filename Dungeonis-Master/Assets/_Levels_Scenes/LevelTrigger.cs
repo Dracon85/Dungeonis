@@ -1,14 +1,15 @@
-﻿using UnityEngine;
-
-namespace LevelManager{
-public class LevelTrigger
-	: MonoBehaviour
+﻿namespace LevelManager
 {
-	public SceneIndexes LoadSceneName;
+	using UnityEngine;
 
-	private void OnTriggerEnter(Collider collider)
+	public class LevelTrigger
+		: MonoBehaviour
 	{
-		LoadingScreenManager.LoadScene((int)LoadSceneName);
+		public SceneIndexes LoadSceneName;
+
+		private void OnTriggerEnter(Collider collider)
+		{
+			LoadingScreenManager.LoadScene((int)LoadSceneName);
+		}
 	}
-}
 }

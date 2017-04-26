@@ -1,6 +1,7 @@
-﻿namespace RPG.UtilScripts{
-public interface IDamageable
+﻿namespace RPG.UtilScripts
 {
-	void TakeDamage(float damage);
-}
+	public interface IDamageable
+	{
+		void TakeDamage(float damage);
+	}
 }

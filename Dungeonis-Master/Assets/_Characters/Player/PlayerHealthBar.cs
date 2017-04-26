@@ -1,28 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-
-namespace RPG.Characters{
-[RequireComponent(typeof(RawImage))]
-public class PlayerHealthBar
-	: MonoBehaviour
+﻿namespace RPG.Characters
 {
-	RawImage healthBarRawImage;
-	Player player;
+	using UnityEngine;
+	using UnityEngine.UI;
 
-	// Use this for initialization
-	void Start()
+	[RequireComponent(typeof(RawImage))]
+	public class PlayerHealthBar
+		: MonoBehaviour
 	{
-		player            = FindObjectOfType<Player>();
-		healthBarRawImage = GetComponent<RawImage>();
-	}
+		RawImage healthBarRawImage;
+		Player player;
 
-	// Update is called once per frame
-	void Update()
-	{
-		float xValue             = -(player.healthAsPercentage / 2f) - 0.5f;
-		healthBarRawImage.uvRect = new Rect(xValue, 0f, 0.5f, 1f);
+		// Use this for initialization
+		void Start()
+		{
+			player            = FindObjectOfType<Player>();
+			healthBarRawImage = GetComponent<RawImage>();
+		}
+
+		// Update is called once per frame
+		void Update()
+		{
+			float xValue             = -(player.HealthAsPercentage / 2f) - 0.5f;
+			healthBarRawImage.uvRect = new Rect(xValue, 0f, 0.5f, 1f);
+		}
 	}
-}
 }

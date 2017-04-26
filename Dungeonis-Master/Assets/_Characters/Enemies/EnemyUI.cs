@@ -1,30 +1,28 @@
-﻿using UnityEngine;
-
-// Add a UI Socket transform to your enemy
+﻿// Add a UI Socket transform to your enemy
 // Attack this script to the socket
 // Link to a canvas prefab that contains NPC UI
-namespace RPG.Characters{
-public class EnemyUI
-	: MonoBehaviour
+namespace RPG.Characters
 {
+	using UnityEngine;
 
-	// Works around Unity 5.5's lack of nested prefabs
-	[Tooltip("The UI canvas prefab")]
-	[SerializeField] GameObject enemyCanvasPrefab = null;
-
-	Camera cameraToLookAt;
-
-	// Use this for initialization
-	void Start()
+	public class EnemyUI
+		: MonoBehaviour
 	{
-		cameraToLookAt = Camera.main;
-		Instantiate(enemyCanvasPrefab, transform.position, Quaternion.identity, transform);
-	}
+		// Works around Unity 5.5's lack of nested prefabs
+		[Tooltip("The UI canvas prefab")]
+		[SerializeField] private GameObject enemyCanvasPrefab = null;
 
-	// Update is called once per frame
-	void LateUpdate()
-	{
-		transform.LookAt(cameraToLookAt.transform);
+		private Camera cameraToLookAt;
+
+		private void Start()
+		{
+			cameraToLookAt = Camera.main;
+			Instantiate(enemyCanvasPrefab, transform.position, Quaternion.identity, transform);
+		}
+
+		private void LateUpdate()
+		{
+			transform.LookAt(cameraToLookAt.transform);
+		}
 	}
-}
 }

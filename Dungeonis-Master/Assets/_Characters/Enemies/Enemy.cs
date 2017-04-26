@@ -1,98 +1,89 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityStandardAssets.Characters.ThirdPerson;
-//TODO consider rewiring...
-using RPG.UtilScripts;
-using RPG.Weapons;
-
-namespace RPG.Characters{
-public class Enemy
-	: MonoBehaviour, IDamageable
+﻿namespace RPG.Characters
 {
-	[SerializeField]float maxHealthPoints=100f;
-	[SerializeField]float blueAggroRadius=5f;
-	[SerializeField]float redAttackRange=2f;
-	[SerializeField]float damagePerShot=5f;
-	[SerializeField]float shotDelay=1f;
-	[SerializeField]Vector3 aimOffset = new Vector3(0,1f,0); //target adjustment for projectile sort of a hack fix
-	[SerializeField]GameObject projectileToUse;
-	[SerializeField]GameObject projectileSocket;
+	using UnityEngine;
+	using UnityStandardAssets.Characters.ThirdPerson;
+	//TODO consider rewiring...
+	using RPG.UtilScripts;
+	using RPG.Weapons;
 
-	float currentHealthPoints;
-
-	AICharacterControl aiCharControl = null;
-	GameObject player                = null;
-	bool isAttacking                 = false;
-
-	public void TakeDamage(float damage)
+	public class Enemy
+		: CharacterBase
 	{
-		currentHealthPoints = Mathf.Clamp (currentHealthPoints-damage, 0f, maxHealthPoints);
-		//enemies now chase when damaged. more hits =farther chase
-		blueAggroRadius += 20;
+		[SerializeField] private float _noticeRange = 5f;
+		[SerializeField] private float damagePerShot = 5f;
+		[SerializeField] private Vector3 aimOffset = new Vector3(0, 1f, 0); //target adjustment for projectile sort of a hack fix
+		[SerializeField] private GameObject projectileToUse;
+		[SerializeField] private GameObject projectileSocket;
 
-		if (currentHealthPoints <= 0)
-			Destroy (gameObject);
-	}
+		private AICharacterControl aiCharControl = null;
+		private GameObject player = null;
+		private bool isAttacking = false;
 
-	public float healthAsPercentage
-	{
-		get
+		public override void TakeDamage(float damage)
 		{
-			return currentHealthPoints/maxHealthPoints;
-		}
-	}
+			CurrentHealthPoints = Mathf.Clamp(CurrentHealthPoints - damage, 0f, MaxHealthPoints);
+			//enemies now chase when damaged. more hits =farther chase
+			_noticeRange += 20;
 
-	void Start ()
-	{
-		player              = GameObject.FindGameObjectWithTag ("Player");
-		aiCharControl       = GetComponent<AICharacterControl>();
-		currentHealthPoints = maxHealthPoints;
-	}
-
-	void LateUpdate ()
-	{
-		float distanceToPlayer = Vector3.Distance (player.transform.position, transform.position);
-
-		if (distanceToPlayer <= blueAggroRadius)
-			aiCharControl.SetTarget(player.transform);
-		else
-			aiCharControl.SetTarget(transform);
-
-
-		if (distanceToPlayer <= redAttackRange&&!isAttacking)
-		{
-			isAttacking = true;
-			InvokeRepeating ("FireProjectile", 0f, shotDelay); //TODO switch to coroutines
+			if (CurrentHealthPoints <= 0)
+				Destroy(gameObject);
 		}
 
-		if (distanceToPlayer >= redAttackRange)
+		private void Awake()
 		{
-			isAttacking = false;
-			CancelInvoke();
+			MaxHealthPoints = 100f;
+			AttackRange = 2f;
+			ShotDelay = 1f;
+		}
+
+		private void Start()
+		{
+			player              = GameObject.FindGameObjectWithTag("Player");
+			aiCharControl       = GetComponent<AICharacterControl>();
+			CurrentHealthPoints = MaxHealthPoints;
+		}
+
+		private void LateUpdate()
+		{
+			if (IsTargetInRange(player, _noticeRange))
+				aiCharControl.SetTarget(player.transform);
+			else
+				aiCharControl.SetTarget(transform);
+
+
+			if (IsTargetInRange(player, AttackRange) && !isAttacking)
+			{
+				isAttacking = true;
+				InvokeRepeating("FireProjectile", 0f, ShotDelay); //TODO switch to coroutines
+			}
+
+			if (!IsTargetInRange(player, AttackRange))
+			{
+				isAttacking = false;
+				CancelInvoke();
+			}
+		}
+		//separate out character firing logic into a new class
+		void FireProjectile()
+		{
+			GameObject newProjectile       = Instantiate(projectileToUse, projectileSocket.transform.position, Quaternion.identity);
+			Projectile projectileComponent = newProjectile.GetComponent<Projectile>();
+
+			projectileComponent.SetDamage(damagePerShot);
+			projectileComponent.SetShooter(gameObject);
+
+			Vector3 unitVectorToPlayer                       = (player.transform.position + aimOffset - projectileSocket.transform.position).normalized;
+			float projectileSpeed                            = projectileComponent.GetDefaultLaunchSpeed();
+			newProjectile.GetComponent<Rigidbody>().velocity = unitVectorToPlayer * projectileSpeed;
+		}
+
+		private void OnDrawGizmos()
+		{
+			//draw aggroRadius
+			Gizmos.color = new Color(0, 0, 255, .5f);
+			Gizmos.DrawWireSphere(transform.position, _noticeRange);
+			Gizmos.color = new Color(255, 0, 0, .5f);
+			Gizmos.DrawWireSphere(transform.position, AttackRange);
 		}
 	}
-	//separate out character firing logic into a new class
-	void FireProjectile()
-	{
-		GameObject newProjectile       = Instantiate(projectileToUse, projectileSocket.transform.position, Quaternion.identity);
-		Projectile projectileComponent = newProjectile.GetComponent<Projectile>();
-
-		projectileComponent.SetDamage(damagePerShot);
-		projectileComponent.SetShooter (gameObject);
-
-		Vector3 unitVectorToPlayer                       = (player.transform.position+aimOffset - projectileSocket.transform.position).normalized;
-		float projectileSpeed = projectileComponent.GetDefaultLaunchSpeed();
-		newProjectile.GetComponent<Rigidbody>().velocity = unitVectorToPlayer*projectileSpeed;
-	}
-
-	void OnDrawGizmos()
-	{
-		//draw aggroRadius
-		Gizmos.color= new Color(0,0,255,.5f);
-		Gizmos.DrawWireSphere (transform.position,blueAggroRadius);
-		Gizmos.color= new Color(255,0,0,.5f);
-		Gizmos.DrawWireSphere (transform.position,redAttackRange);
-	}
-}
 }

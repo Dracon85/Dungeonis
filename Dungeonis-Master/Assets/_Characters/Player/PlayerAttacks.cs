@@ -1,60 +1,59 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using RPG.Weapons;
+﻿namespace RPG.Characters
+{
+	using UnityEngine;
+	using RPG.Weapons;
 
-namespace RPG.Characters{
-public class PlayerAttacks : MonoBehaviour {
+	public class PlayerAttacks
+		: MonoBehaviour
+	{
+		//tempoary till we get abilities set up properly. TODO apply to an ability array size of 10
+		[SerializeField] private GameObject _projectileSocket;
+		[SerializeField] private GameObject _projectileToUse;
+		[SerializeField] private float _damagePerShot = 5f;
+		[SerializeField] private float _attackDelay = 0.5f;
+		[SerializeField] private LayerMask _layerMask;
+		private float _lastHitTime = 0f;
+		private GameObject _player;
+		private Player _playerComponent;
 
-	//tempoary till we get abilities set up properly. TODO apply to an ability array size of 10
-	[SerializeField]GameObject projectileSocket;
-	[SerializeField]GameObject projectileToUse;
-	[SerializeField]float damagePerShot=5f;
-	[SerializeField]float attackDelay = 0.5f;
-	float lastHitTime = 0f;
-	private Transform _cam;
-
-	// Use this for initialization
-	void Start () {
-		if (Camera.main != null)
-			_cam = Camera.main.transform;
-		else
+		// Use this for initialization
+		void Start ()
 		{
-			Debug.LogWarning("Warning: no main camera found. Third person character needs a Camera tagged \"MainCamera\", for camera-relative controls.", gameObject);
-			// we use self-relative controls in this case, which probably isn't what the user wants, but hey, we warned them!
-		}		
-	}
+			_player          = GameObject.FindGameObjectWithTag("Player");
+			_playerComponent = _player.GetComponent<Player>();
+		}
 
-	// Update is called once per frame
-	void Update () {
-		//temp fire logic TODO make real ability array
-		if (Input.GetButtonDown ("Fire1")) {
-			var ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-			RaycastHit hit;
-			if (Physics.Raycast (ray, out hit, 100f)){
-				Debug.DrawLine (_cam.position, hit.point);
-				// cache oneSpawn object in spawnPt, if not cached yet
-				if (Time.time-lastHitTime>attackDelay){//add attack delay
-					if (!projectileSocket) projectileSocket = GameObject.Find("oneSpawn");
+		// TODO Refactor this once we get new attack types
+		void Update()
+		{
+			if (Input.GetButtonDown("Fire1"))
+			{
+				RaycastHit hit;
+				Ray ray = new Ray(new Vector3(_player.transform.position.x, 0.50f, _player.transform.position.z), _player.transform.forward);
 
-					GameObject newProjectile = Instantiate(projectileToUse, projectileSocket.transform.position, Quaternion.identity);
-					//set last hit time
-					lastHitTime = Time.time;
+				if (Physics.Raycast(ray, out hit, _playerComponent.GetAttackRange(), _layerMask))
+				{
+					Debug.DrawLine(new Vector3(_player.transform.position.x, 0.50f, _player.transform.position.z), hit.point);
 
-					Projectile projectileComponent = newProjectile.GetComponent<Projectile>();
+					// cache oneSpawn object in spawnPt, if not cached yet
+					//add attack delay
+					if (Time.time - _lastHitTime > _attackDelay)
+					{
+						if (!_projectileSocket)
+							_projectileSocket = GameObject.Find("ShotOrigin");
 
-					projectileComponent.SetDamage(damagePerShot);
-					projectileComponent.SetShooter (gameObject);
+						GameObject newProjectile = Instantiate(_projectileToUse, _projectileSocket.transform.position, Quaternion.identity);
+						_lastHitTime = Time.time;
+						Projectile projectileComponent = newProjectile.GetComponent<Projectile>();
 
-					float projectileSpeed = projectileComponent.GetDefaultLaunchSpeed();
+						projectileComponent.SetDamage(_damagePerShot);
+						projectileComponent.SetShooter(gameObject);
 
-					// turn the projectile to hit.point
-					newProjectile.transform.LookAt(hit.point); 
-					newProjectile.GetComponent<Rigidbody>().velocity = newProjectile.transform.forward*projectileSpeed;
-				}		
+						newProjectile.transform.LookAt(hit.point);
+						newProjectile.GetComponent<Rigidbody>().velocity = newProjectile.transform.forward * projectileComponent.GetDefaultLaunchSpeed();
+					}
+				}
 			}
-
 		}
 	}
-}
 }

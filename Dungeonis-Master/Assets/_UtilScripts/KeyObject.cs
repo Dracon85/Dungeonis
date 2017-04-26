@@ -1,15 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace RPG.UtilScripts{
-public class KeyObject: MonoBehaviour
+﻿namespace RPG.UtilScripts
 {
-	public UnlockDoor doorThisIsFor;
+	using UnityEngine;
 
-	void OnDestroy()
+	public class KeyObject
+		: MonoBehaviour
 	{
-		doorThisIsFor.KeyUsed(this.gameObject);
+		public UnlockDoor doorThisIsFor;
+
+		void OnDestroy()
+		{
+			doorThisIsFor.KeyUsed(this.gameObject);
+		}
 	}
-}
 }

@@ -1,45 +1,42 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace RPG.CameraUI{
-[RequireComponent(typeof(CameraRaycaster))]
-public class CursorAffordance
-	: MonoBehaviour
+﻿namespace RPG.CameraUI
 {
+	using UnityEngine;
 
-	[SerializeField]Texture2D walkCursor    = null;
-	[SerializeField]Texture2D attackCursor  = null;
-	[SerializeField]Texture2D unknownCursor = null;
-	[SerializeField]Vector2 cursorHotspot   = new Vector2(0, 0);
-	//TODO solve fight between Serialize and const
-	[SerializeField] const int walkableLayerNumber = 8;
-	[SerializeField] const int enemyLayerNumber    = 9;
-
-	CameraRaycaster cameraRaycaster;
-
-	// Use this for initialization
-	void Start ()
+	[RequireComponent(typeof(CameraRaycaster))]
+	public class CursorAffordance
+		: MonoBehaviour
 	{
-		cameraRaycaster                             = GetComponent<CameraRaycaster>();
-		cameraRaycaster.notifyLayerChangeObservers += OnLayerChange;
-	}
 
-	// Update is called once per frame
-	void OnLayerChange (int newLayer)
-	{
-		switch (newLayer)
+		[SerializeField] private Texture2D walkCursor    = null;
+		[SerializeField] private Texture2D attackCursor  = null;
+		[SerializeField] private Texture2D unknownCursor = null;
+		[SerializeField] private Vector2 cursorHotspot   = new Vector2(0, 0);
+		//TODO solve fight between Serialize and const
+		[SerializeField] private const int walkableLayerNumber = 8;
+		[SerializeField] private const int enemyLayerNumber    = 9;
+
+		private CameraRaycaster cameraRaycaster;
+
+		private void Start()
 		{
-			case walkableLayerNumber:
-				Cursor.SetCursor(walkCursor, cursorHotspot, CursorMode.Auto);
-				break;
-			case enemyLayerNumber:
-				Cursor.SetCursor(attackCursor, cursorHotspot, CursorMode.Auto);
-				break;
-			default:
-				Cursor.SetCursor(unknownCursor, cursorHotspot, CursorMode.Auto);
-				return;
+			cameraRaycaster                             = GetComponent<CameraRaycaster>();
+			cameraRaycaster.notifyLayerChangeObservers += OnLayerChange;
+		}
+
+		private void OnLayerChange(int newLayer)
+		{
+			switch (newLayer)
+			{
+				case walkableLayerNumber:
+					Cursor.SetCursor(walkCursor, cursorHotspot, CursorMode.Auto);
+					break;
+				case enemyLayerNumber:
+					Cursor.SetCursor(attackCursor, cursorHotspot, CursorMode.Auto);
+					break;
+				default:
+					Cursor.SetCursor(unknownCursor, cursorHotspot, CursorMode.Auto);
+					return;
+			}
 		}
 	}
-}
 }
