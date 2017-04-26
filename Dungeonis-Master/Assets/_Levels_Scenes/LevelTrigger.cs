@@ -2,14 +2,20 @@
 {
 	using UnityEngine;
 
-	public class LevelTrigger
-		: MonoBehaviour
-	{
-		public SceneIndexes LoadSceneName;
+public class LevelTrigger
+	: MonoBehaviour
+{
+	public SceneIndexes LoadSceneName;
+	private Player player;
 
-		private void OnTriggerEnter(Collider collider)
+		void Start ()
 		{
-			LoadingScreenManager.LoadScene((int)LoadSceneName);
+			player              = GameObject.FindObjectOfType<Player>();
 		}
+	
+	private void OnTriggerEnter(Collider collider)
+	{
+		player.SavePlayer ();
+		LoadingScreenManager.LoadScene((int)LoadSceneName);
 	}
 }

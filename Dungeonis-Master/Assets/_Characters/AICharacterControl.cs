@@ -1,4 +1,4 @@
-namespace UnityStandardAssets.Characters.ThirdPerson
+namespace RPG.Characters
 {
 	using UnityEngine;
 

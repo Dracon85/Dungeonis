@@ -6,7 +6,7 @@
 	using UnityEngine.UI;
 
 	public class LoadingScreenManager
-	: MonoBehaviour
+		: MonoBehaviour
 	{
 		[Header("Visual Settings")]
 		[SerializeField] private Image _loadingIcon;

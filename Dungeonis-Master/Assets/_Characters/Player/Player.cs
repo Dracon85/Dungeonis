@@ -6,17 +6,26 @@
 	using RPG.CameraUI;
 	using RPG.Weapons;
 
-	public class Player
-		: CharacterBase
+namespace RPG.Characters
 	{
-		[SerializeField] private int _enemyLayer = 9;
-		[SerializeField] private GameObject _respawnPoint;
-		[SerializeField] private Weapon _weaponInUse;
-		[SerializeField] AnimatorOverrideController animatorOverrideController;
+public class Player
+	: CharacterBase
+{
+	public PlayerStatistics localPlayerData;
+	[SerializeField] private int _enemyLayer = 9;
+	[SerializeField] private GameObject _respawnPoint;
+	[SerializeField] private Weapon _weaponInUse;
+	[SerializeField] AnimatorOverrideController animatorOverrideController;
 
 		private Animator animator;
 		private float _lastHitTime = 0f;
 		private CameraRaycaster _cameraRaycaster;
+
+		//Save data to global control
+		public void SavePlayer()
+		{
+			GlobalControl.Instance.savedPlayerData = localPlayerData;
+		}
 
 		/// <summary>
 		/// Applies damage taken to player.
@@ -46,7 +55,8 @@
 
 		private void Start()
 		{
-			_cameraRaycaster                            = FindObjectOfType<CameraRaycaster>();
+				localPlayerData = GlobalControl.Instance.savedPlayerData;
+				_cameraRaycaster                            = FindObjectOfType<CameraRaycaster>();
 			RegisterForMouseClick ();
 			SetCurrentMaxHealth ();
 			PutWeaponInHand();
@@ -61,14 +71,26 @@
 			_cameraRaycaster.notifyMouseClickObservers += OnMouseClick;
 		}
 
-		/// <summary>
-		/// Sets the current maximum health.
-		/// </summary>
-		private void SetCurrentMaxHealth()
+		void SetCurrentMaxHealth ()
+		{
+			localPlayerData._currentHealthPoints = localPlayerData._maxHealthPoints;
+		}
+
+		private void OverrideAnimatorController ()
 		{
 			CurrentHealthPoints = MaxHealthPoints;
 		}
 
+	/// <summary>
+	/// Determines whether the player is dead.
+	/// </summary>
+	/// <returns>
+	/// <c>true</c> if player is dead; otherwise, <c>false</c>.
+	/// </returns>
+	private bool IsPlayerDead()
+	{
+			return localPlayerData._currentHealthPoints <= 0;
+	}
 		/// <summary>
 		/// Overrides the animator controller.
 		/// </summary>
@@ -132,8 +154,8 @@
 
 			if ((Time.time - _lastHitTime) > _weaponInUse.GetMinTimeBetweenHits())
 			{
-				animator.SetTrigger("Attack"); //TODO make const
-				enemyComponent.TakeDamage(AttackPower);
+				animator.SetTrigger ("Attack");//TODO make const
+				enemyComponent.TakeDamage(localPlayerData._playerAtkPower);
 				_lastHitTime = Time.time;
 			}
 		}
