@@ -29,7 +29,7 @@ public class ProjectileShootTriggerable : MonoBehaviour {
 		Projectile projectileComponent = clonedBullet.GetComponent<Projectile>();
 		
 		//use damage set on player in inspector and shoot at mouse position
-		var damagePerShot=player._playerAtkPower;
+		var damagePerShot=player.localPlayerData._playerMagicAtkPower*projectileComponent.SpellDamageModifier;
 		projectileComponent.SetDamage(damagePerShot);
 
 		var ray = Camera.main.ScreenPointToRay (Input.mousePosition);

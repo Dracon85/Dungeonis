@@ -8,6 +8,9 @@ namespace RPG.Characters{
 public class PlayerHealthBar
 	: MonoBehaviour
 {
+	public Text healthDisplay;
+	public Text attackDisplay;
+	public Text MagicDisplay;
 	RawImage healthBarRawImage;
 	Player player;
 
@@ -22,6 +25,17 @@ public class PlayerHealthBar
 	void Update()
 	{
 		float xValue             = -(player.healthAsPercentage / 2f) - 0.5f;
+		var currentHealth = player.localPlayerData._currentHealthPoints;
+		var maxHealth = player.localPlayerData._maxHealthPoints;
+		var physAtk = player.localPlayerData._playerAtkPower;
+		var magAtk = player.localPlayerData._playerMagicAtkPower;
+			string max = (maxHealth.ToString ());
+			string current=(currentHealth.ToString());
+			healthDisplay.text =string.Format(@"{0}/{1}",max,current);
+			string physATK=(physAtk.ToString ());
+			string magATK=(magAtk.ToString ());
+			attackDisplay.text = ("Mag ATK= " + magATK);
+			MagicDisplay.text = ("Phys ATK= " + physATK);
 		healthBarRawImage.uvRect = new Rect(xValue, 0f, 0.5f, 1f);
 	}
 }

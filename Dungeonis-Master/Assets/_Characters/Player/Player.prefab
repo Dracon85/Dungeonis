@@ -1356,8 +1356,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1982944527517526}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -133.34, y: 27.786, z: -202.4}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4701919160467640}
@@ -2153,7 +2153,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1109436162405966}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.16, z: 1.68}
+  m_LocalPosition: {x: 0, y: 1.4, z: 1.51}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4203043426343390}
@@ -2272,11 +2272,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a5b204926e74b4285f1cb100526cdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerAtkPower: 10
-  _maxHealthPoints: 100
+  localPlayerData:
+    _playerAtkPower: 10
+    _playerMagicAtkPower: 15
+    _maxHealthPoints: 100
+    _currentHealthPoints: 100
   _enemyLayer: 9
-  _respawnPoint: {fileID: 1389788080460242, guid: 2f1b3a3cb4909524085c4f9c3409a2b3,
-    type: 2}
+  _respawnPoint: {fileID: 0}
   _weaponInUse: {fileID: 11400000, guid: b37ee8239f374a041bcf74bdf869d3e9, type: 2}
   animatorOverrideController: {fileID: 22100000, guid: f0f11e47b01c4a041b2290847ac5631b,
     type: 2}

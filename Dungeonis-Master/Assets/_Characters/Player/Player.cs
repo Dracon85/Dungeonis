@@ -11,23 +11,27 @@ namespace RPG.Characters{
 public class Player
 	: MonoBehaviour, IDamageable
 {
-	public float _playerAtkPower     = 10f;
-	[SerializeField] private float _maxHealthPoints    = 100f;	
+	public PlayerStatistics localPlayerData;	
 	[SerializeField] private int _enemyLayer           = 9;
 	[SerializeField] private GameObject _respawnPoint;
 	[SerializeField] private Weapon _weaponInUse;
 	[SerializeField] AnimatorOverrideController animatorOverrideController;
 
 	Animator animator;
-	private float _currentHealthPoints;
 	private float _lastHitTime = 0f;
 	private CameraRaycaster _cameraRaycaster;
+
+	//Save data to global control
+	public void SavePlayer()
+		{
+			GlobalControl.Instance.savedPlayerData = localPlayerData;
+		}
 
 	public float healthAsPercentage
 	{
 		get
 		{
-			return _currentHealthPoints / _maxHealthPoints;
+				return localPlayerData._currentHealthPoints / localPlayerData._maxHealthPoints;
 		}
 	}
 
@@ -37,15 +41,15 @@ public class Player
 	/// <param name="damage">The damage.</param>
 	public void TakeDamage(float damage)
 	{
-		_currentHealthPoints = Mathf.Clamp(_currentHealthPoints - damage, 0f, _maxHealthPoints);
-
+			localPlayerData._currentHealthPoints = Mathf.Clamp(localPlayerData._currentHealthPoints - damage, 0f, localPlayerData._maxHealthPoints);
+			SavePlayer ();
 		if (IsPlayerDead())
 		{
 			transform.position   = _respawnPoint.transform.position;
-			_currentHealthPoints = _maxHealthPoints;
+				localPlayerData._currentHealthPoints = localPlayerData._maxHealthPoints;
 		}
 	}
-
+		//trying to set instance of player
 	private void Awake()
 	{
 		_respawnPoint      = GameObject.FindGameObjectWithTag("PlayerRespawn");
@@ -54,6 +58,7 @@ public class Player
 
 	private void Start()
 	{
+		localPlayerData = GlobalControl.Instance.savedPlayerData;
 		_cameraRaycaster                            = FindObjectOfType<CameraRaycaster>();
 		RegisterForMouseClick ();
 		SetCurrentMaxHealth ();
@@ -68,7 +73,7 @@ public class Player
 
 		void SetCurrentMaxHealth ()
 		{
-			_currentHealthPoints = _maxHealthPoints;
+			localPlayerData._currentHealthPoints = localPlayerData._maxHealthPoints;
 		}
 
 		private void OverrideAnimatorController ()
@@ -86,7 +91,7 @@ public class Player
 	/// </returns>
 	private bool IsPlayerDead()
 	{
-		return _currentHealthPoints <= 0;
+			return localPlayerData._currentHealthPoints <= 0;
 	}
 
 	/// <summary>
@@ -136,7 +141,7 @@ public class Player
 			if ((Time.time - _lastHitTime) > _weaponInUse.GetMinTimeBetweenHits())
 			{
 				animator.SetTrigger ("Attack");//TODO make const
-				enemyComponent.TakeDamage(_playerAtkPower);
+				enemyComponent.TakeDamage(localPlayerData._playerAtkPower);
 				_lastHitTime = Time.time;
 			}
 		}

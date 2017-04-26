@@ -8,6 +8,7 @@ public class ProjectileAbility : Ability {
 
 	public float projectileForce = 500f;
 	public Rigidbody projectile;
+	public float SpellDamageModifier;
 
 	private ProjectileShootTriggerable launcher;
 
