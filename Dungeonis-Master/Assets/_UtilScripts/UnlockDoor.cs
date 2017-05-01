@@ -1,31 +1,33 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace RPG.UtilScripts{
-public class UnlockDoor	: MonoBehaviour
+﻿namespace RPG.UtilScripts
 {
-	// could drag your key gameobjects into the inspector to set them
-	public List<GameObject> KeysToDoorRemaining = new List<GameObject>();
+	using System.Collections.Generic;
+	using UnityEngine;
 
-	void Start()
+	public class UnlockDoor
+		: MonoBehaviour
 	{
-		// so for each gameobject that you specify as a key, we add a script component to it
-		// and that component will say, once then object is destroyed
-		// call the KeyUsed method and remove that item from the list
-		foreach(GameObject DoorUnlockers in KeysToDoorRemaining)
+		// could drag your key gameobjects into the inspector to set them
+		public List<GameObject> KeysToDoorRemaining = new List<GameObject>();
+
+		// when a key is destroyed, call a method on the door passing in the gameobject that was destroyed
+		public void KeyUsed(GameObject keyGameObject)
 		{
-			DoorUnlockers.AddComponent<KeyObject>();
-			DoorUnlockers.GetComponent<KeyObject>().doorThisIsFor = this;
+			KeysToDoorRemaining.Remove(keyGameObject);
+
+			if (KeysToDoorRemaining.Count <= 0)
+				Destroy(gameObject);
+		}
+
+		private void Start()
+		{
+			// so for each gameobject that you specify as a key, we add a script component to it
+			// and that component will say, once then object is destroyed
+			// call the KeyUsed method and remove that item from the list
+			foreach (GameObject DoorUnlockers in KeysToDoorRemaining)
+			{
+				DoorUnlockers.AddComponent<KeyObject>();
+				DoorUnlockers.GetComponent<KeyObject>().doorThisIsFor = this;
+			}
 		}
 	}
-	// when a key is destroyed, call a method on the door passing in the gameobject that was destroyed
-	public void KeyUsed(GameObject keyGameObject)
-	{
-		KeysToDoorRemaining.Remove(keyGameObject);
-
-		if(KeysToDoorRemaining.Count <=0)
-			Destroy(gameObject);
-	}
-}
 }

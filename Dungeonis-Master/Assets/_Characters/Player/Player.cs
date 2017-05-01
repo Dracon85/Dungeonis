@@ -1,153 +1,158 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Assertions;
-//TODO consider rewiring...
-using RPG.CameraUI;
-using RPG.UtilScripts;
-using RPG.Weapons;
-
-namespace RPG.Characters{
-public class Player
-	: MonoBehaviour, IDamageable
+﻿namespace RPG.Characters
 {
-	public PlayerStatistics localPlayerData;	
-	[SerializeField] private int _enemyLayer           = 9;
-	[SerializeField] private GameObject _respawnPoint;
-	[SerializeField] private Weapon _weaponInUse;
-	[SerializeField] AnimatorOverrideController animatorOverrideController;
+	using UnityEngine;
+	using UnityEngine.Assertions;
+	//TODO consider rewiring...
+	using RPG.CameraUI;
+	using RPG.Weapons;
 
-	Animator animator;
-	private float _lastHitTime = 0f;
-	private CameraRaycaster _cameraRaycaster;
+	public class Player
+		: CharacterBase
+	{
+		[SerializeField] private int _enemyLayer = 9;
+		[SerializeField] private GameObject _respawnPoint;
+		[SerializeField] private Weapon _weaponInUse;
+		[SerializeField] AnimatorOverrideController animatorOverrideController;
 
-	//Save data to global control
-	public void SavePlayer()
+		private Animator animator;
+		private float _lastHitTime = 0f;
+		private CameraRaycaster _cameraRaycaster;
+
+		private void Awake()
 		{
-			GlobalControl.Instance.savedPlayerData = localPlayerData;
+			_respawnPoint = GameObject.FindGameObjectWithTag("PlayerRespawn");
+			transform.position = _respawnPoint.transform.position;
+
+			MaxHealthPoints     = 100f;
+			AttackPower         = 10f;
+			AttackRange         = 5f;
+			ShotDelay           = 0.5f;
+			CurrentHealthPoints = MaxHealthPoints;
+			ExperiencePoints    = 0;
+			MagicAttackPower    = 5f;
+			PhysicalAttackPower = 5f;
+	}
+
+		private void Start()
+		{
+			_cameraRaycaster = FindObjectOfType<CameraRaycaster>();
+			RegisterForMouseClick();
+			LoadPlayer();
+			PutWeaponInHand();
+			OverrideAnimatorController();
 		}
 
-	public float healthAsPercentage
-	{
-		get
+		/// <summary>
+		/// Applies damage taken to player.
+		/// </summary>
+		/// <param name="damage">The damage.</param>
+		public override void TakeDamage(float damage)
 		{
-				return localPlayerData._currentHealthPoints / localPlayerData._maxHealthPoints;
+			CurrentHealthPoints = Mathf.Clamp(CurrentHealthPoints - damage, 0f, MaxHealthPoints);
+
+			if (IsCharacterDead())
+			{
+				transform.position = _respawnPoint.transform.position;
+				CurrentHealthPoints = MaxHealthPoints;
+			}
 		}
-	}
 
-	/// <summary>
-	/// Applies damage taken to player.
-	/// </summary>
-	/// <param name="damage">The damage.</param>
-	public void TakeDamage(float damage)
-	{
-			localPlayerData._currentHealthPoints = Mathf.Clamp(localPlayerData._currentHealthPoints - damage, 0f, localPlayerData._maxHealthPoints);
-			SavePlayer ();
-		if (IsPlayerDead())
-		{
-			transform.position   = _respawnPoint.transform.position;
-				localPlayerData._currentHealthPoints = localPlayerData._maxHealthPoints;
-		}
-	}
-		//trying to set instance of player
-	private void Awake()
-	{
-		_respawnPoint      = GameObject.FindGameObjectWithTag("PlayerRespawn");
-		transform.position = _respawnPoint.transform.position;
-	}
-
-	private void Start()
-	{
-		localPlayerData = GlobalControl.Instance.savedPlayerData;
-		_cameraRaycaster                            = FindObjectOfType<CameraRaycaster>();
-		RegisterForMouseClick ();
-		SetCurrentMaxHealth ();
-		PutWeaponInHand();
-		OverrideAnimatorController ();
-	}
-
-		void RegisterForMouseClick ()
+		/// <summary>
+		/// Registers for mouse click.
+		/// </summary>
+		private void RegisterForMouseClick()
 		{
 			_cameraRaycaster.notifyMouseClickObservers += OnMouseClick;
 		}
 
-		void SetCurrentMaxHealth ()
+		/// <summary>
+		/// Saves the player.
+		/// </summary>
+		public void SavePlayer()
 		{
-			localPlayerData._currentHealthPoints = localPlayerData._maxHealthPoints;
+			GlobalControl.Instance.SavePlayer(this);
 		}
 
-		private void OverrideAnimatorController ()
+		/// <summary>
+		/// Loads the player.
+		/// </summary>
+		public void LoadPlayer()
 		{
-			animator = GetComponent<Animator>();
-			animator.runtimeAnimatorController = animatorOverrideController;
-			animatorOverrideController ["DEFAULT ATTACK"] = _weaponInUse.GetAttackAnimClip();//TODO remove const/string ref
+			MaxHealthPoints     = GlobalControl.Instance.MaxHealthPoints;
+			AttackPower         = GlobalControl.Instance.AttackPower;
+			ShotDelay           = GlobalControl.Instance.ShotDelay;
+			CurrentHealthPoints = GlobalControl.Instance.CurrentHealthPoints;
+			AttackRange         = GlobalControl.Instance.AttackRange;
+			ExperiencePoints    = GlobalControl.Instance.ExperiencePoints;
 		}
 
-	/// <summary>
-	/// Determines whether the player is dead.
-	/// </summary>
-	/// <returns>
-	/// <c>true</c> if player is dead; otherwise, <c>false</c>.
-	/// </returns>
-	private bool IsPlayerDead()
-	{
-			return localPlayerData._currentHealthPoints <= 0;
-	}
-
-	/// <summary>
-	/// Puts the weapon in hand.
-	/// </summary>
-	private void PutWeaponInHand()
-	{
-		var weaponPrefab               = _weaponInUse.GetWeaponPrefab();
-		GameObject dominantHand        = RequestDominantHand();
-		var weapon                     = Instantiate(weaponPrefab, dominantHand.transform);
-		weapon.transform.localPosition = _weaponInUse.gripTransform.localPosition;
-		weapon.transform.localRotation = _weaponInUse.gripTransform.localRotation;
-		//TODO move weapon to correct place and child to hand
-	}
-
-	/// <summary>
-	/// Requests the dominant hand. Handle DominantHand attachment script
-	/// </summary>
-	/// <returns>The Dominant Hand gameObject</returns>
-	private GameObject RequestDominantHand()
-	{
-		var dominantHands                     = GetComponentsInChildren<DominantHand>();
-		int numberOfDominantHands             = dominantHands.Length;
-		Assert.IsFalse(numberOfDominantHands <= 0, "No Dominant Hand Found, on Player Please Add one to Bone");
-		Assert.IsFalse(numberOfDominantHands > 1, "Multiple Dominant Hand scripts on Player Please use only one");
-		return dominantHands[0].gameObject;
-	}
-
-	/// <summary>
-	/// Called when [mouse click]. Attacks enemies if within range. TODO consider using weapon collider to do damage to enemies
-	/// </summary>
-	/// <param name="raycastHit">The raycast hit.</param>
-	/// <param name="layerHit">The layer hit.</param>
-	private void OnMouseClick (RaycastHit raycastHit, int layerHit)
+		/// <summary>
+		/// Overrides the animator controller.
+		/// </summary>
+		private void OverrideAnimatorController()
 		{
-			if (layerHit.Equals (_enemyLayer)) {
+			animator                                     = GetComponent<Animator>();
+			animator.runtimeAnimatorController           = animatorOverrideController;
+			animatorOverrideController["DEFAULT ATTACK"] = _weaponInUse.GetAttackAnimClip(); //TODO remove const/string ref
+		}
+
+		/// <summary>
+		/// Puts the weapon in hand.
+		/// </summary>
+		private void PutWeaponInHand()
+		{
+			GameObject weaponPrefab        = _weaponInUse.GetWeaponPrefab();
+			GameObject dominantHand        = RequestDominantHand();
+			GameObject weapon              = Instantiate(weaponPrefab, dominantHand.transform);
+			weapon.transform.localPosition = _weaponInUse.gripTransform.localPosition;
+			weapon.transform.localRotation = _weaponInUse.gripTransform.localRotation;
+			//TODO move weapon to correct place and child to hand
+		}
+
+		/// <summary>
+		/// Requests the dominant hand. Handle DominantHand attachment script
+		/// </summary>
+		/// <returns>The Dominant Hand gameObject</returns>
+		private GameObject RequestDominantHand()
+		{
+			DominantHand[] dominantHands          = GetComponentsInChildren<DominantHand>();
+			int numberOfDominantHands             = dominantHands.Length;
+			Assert.IsFalse(numberOfDominantHands <= 0, "No Dominant Hand Found, on Player Please Add one to Bone");
+			Assert.IsFalse(numberOfDominantHands > 1, "Multiple Dominant Hand scripts on Player Please use only one");
+			return dominantHands[0].gameObject;
+		}
+
+		/// <summary>
+		/// Called when [mouse click]. Attacks enemies if within range. TODO consider using weapon collider to do damage to enemies
+		/// </summary>
+		/// <param name="raycastHit">The raycast hit.</param>
+		/// <param name="layerHit">The layer hit.</param>
+		private void OnMouseClick(RaycastHit raycastHit, int layerHit)
+		{
+			if (layerHit.Equals(_enemyLayer))
+			{
 				GameObject enemy = raycastHit.collider.gameObject;
 
-				if (IsTargetInRange (enemy)) {
-					AttackTarget (enemy);
-				}
+				if (IsTargetInRange(enemy, _weaponInUse.GetMaxAttackRange()))
+					AttackTarget(enemy);
 			}
 		}
-		private void AttackTarget(GameObject target){
-			var enemyComponent = target.GetComponent<Enemy>();
+
+		/// <summary>
+		/// Attacks the target.
+		/// </summary>
+		/// <param name="target">The target.</param>
+		private void AttackTarget(GameObject target)
+		{
+			Enemy enemyComponent = target.GetComponent<Enemy>();
 
 			if ((Time.time - _lastHitTime) > _weaponInUse.GetMinTimeBetweenHits())
 			{
-				animator.SetTrigger ("Attack");//TODO make const
-				enemyComponent.TakeDamage(localPlayerData._playerAtkPower);
+				animator.SetTrigger("Attack"); //TODO make const
+				enemyComponent.TakeDamage(AttackPower);
 				_lastHitTime = Time.time;
 			}
 		}
-		private bool IsTargetInRange (GameObject target){
-			float distanceToTarget=(target.transform.position-transform.position).magnitude;
-			return distanceToTarget <= _weaponInUse.GetMaxAttackRange ();
+	}
 }
-}
-}
+

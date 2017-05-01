@@ -8,6 +8,7 @@ TagManager:
   - Boss
   - Collide
   - GlobalControl
+  - CameraArm
   layers:
   - Default
   - TransparentFX
