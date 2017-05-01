@@ -1420,8 +1420,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1982944527517526}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -133.34, y: 27.786, z: -202.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4701919160467640}
@@ -2402,14 +2402,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a5b204926e74b4285f1cb100526cdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealthPoints: 0
-  AttackPower: 0
-  AttackRange: 0
-  ShotDelay: 0
-  CurrentHealthPoints: 0
+  MaxHealthPoints: 100
+  AttackPower: 10
+  AttackRange: 4
+  ShotDelay: 1
+  CurrentHealthPoints: 100
   ExperiencePoints: 0
-  PhysicalAttackPower: 0
-  MagicAttackPower: 0
+  PhysicalAttackPower: 10
+  MagicAttackPower: 10
   _enemyLayer: 9
   _respawnPoint: {fileID: 0}
   _weaponInUse: {fileID: 11400000, guid: b37ee8239f374a041bcf74bdf869d3e9, type: 2}
@@ -2480,6 +2480,7 @@ MonoBehaviour:
   _rigidbody: {fileID: 54418993188515906}
   _capsule: {fileID: 136372312264689832}
   Speed: 15
+  _cam: {fileID: 20336038308239028}
 --- !u!114 &114929011545658148
 MonoBehaviour:
   m_ObjectHideFlags: 1
