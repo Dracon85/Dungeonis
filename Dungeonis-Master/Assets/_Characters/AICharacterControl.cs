@@ -1,6 +1,7 @@
 namespace RPG.Characters
 {
 	using UnityEngine;
+	using UnityStandardAssets.Characters.ThirdPerson;
 
 	[RequireComponent(typeof (UnityEngine.AI.NavMeshAgent))]
 	[RequireComponent(typeof (ThirdPersonCharacter))]

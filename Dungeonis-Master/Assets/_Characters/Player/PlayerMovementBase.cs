@@ -29,26 +29,29 @@
 		private Vector3 _groundNormal;
 		private float _capsuleHeight;
 		private Vector3 _capsuleCenter;
+		private Vector3 _GroundNormal;
 
 		public void Move(Vector3 move, bool crouch, bool jump)
 		{
 			if (move.magnitude > 1f)
 				move.Normalize();
 
-			move = transform.InverseTransformDirection(move);
-
 			CheckGroundStatus();
 
-			move           = Vector3.ProjectOnPlane(move, _groundNormal);
-			_turnAmount = Input.GetAxis("Mouse X") * 1.7f;
-			_forwardAmount = move.z;
+			_turnAmount    = Mathf.Atan2(move.x, move.z);
+			_forwardAmount = move.magnitude;
 
-			if (_isGrounded)
+			Vector3 projectedMove = Vector3.ProjectOnPlane(move, _GroundNormal);
+			_turnAmount = Mathf.Atan2(projectedMove.x, projectedMove.z);
+
+
+
+			/*if (_isGrounded)
 				HandleGroundedMovement(crouch, jump);
 			else
-				HandleAirborneMovement();
+				HandleAirborneMovement();*/
 
-			ScaleCapsuleForCrouching(crouch);
+			//ScaleCapsuleForCrouching(crouch);
 			UpdateAnimator(move);
 		}
 

@@ -1,4 +1,4 @@
-﻿namespace LevelManager
+﻿namespace RPG.LevelManager
 {
 	using System.Collections;
 	using UnityEngine;

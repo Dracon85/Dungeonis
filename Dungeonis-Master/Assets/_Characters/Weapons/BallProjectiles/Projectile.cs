@@ -7,6 +7,8 @@
 	public class Projectile
 		: MonoBehaviour
 	{
+		public float SpellDamageModifier = 1;
+
 		[SerializeField] private float _projectileSpeed;
 		[SerializeField] private float _projectileDuration = 5f;
 		[SerializeField] private GameObject _shooter;

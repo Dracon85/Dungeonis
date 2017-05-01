@@ -6,61 +6,49 @@
 	public class MouseCamera
 		: MonoBehaviour
 	{
-		public float XSensitivity = 0.2f;
-		public float YSensitivity = 0.2f;
+		[Header("Camera Settings")]
+		public float SensitivityX = 4.0f;
+		public float SensitivityY = 4.0f;
+		[SerializeField] private float _minAngleY = -50.0f;
+		[SerializeField] private float _maxAngleY = 50.0f;
 
+		[Header("Camera Clipping Settings")]
+		public LayerMask CollisionLayers = -1;
 		public float TargetHeight = 1.7f;
-		public float Distance = 5.0f;
 		public float OffsetFromWall = 0.1f;
 
+		[Header("Camera Zooming Settings")]
 		public float MaxDistance = 20;
 		public float MinDistance = 0.6f;
-		public float SpeedDistance = 5;
-
-		public float xSpeed = 200.0f;
-		public float ySpeed = 200.0f;
-
-		public int yMinLimit = -40;
-		public int yMaxLimit = 80;
-
-		public int ZoomRate = 40;
-
-		public float RotationDampening = 3.0f;
+		public float Distance = 10.0f;
+		public float ZoomRate = 40;
+		public float SpeedDistance = 5.0f;
 		public float ZoomDampening = 5.0f;
-
-		public LayerMask CollisionLayers = -1;
 
 		public bool CameraLock = true;
 
-		private GameObject _player;
+		private Camera _mainCamera;
 		private GameObject _cameraArm;
-		private Transform _target;
-		private float _xDeg = 0.0f;
-		private float _yDeg = 0.0f;
+		private GameObject _player;
+		private float _currentX = 0.0f;
+		private float _currentY = 0.0f;
+
 		private float _currentDistance;
 		private float _desiredDistance;
 		private float _correctedDistance;
-
-		private Quaternion _cameraArmTransformCache;
-		private Quaternion _cameraTransformCache;
-
-		public void ToggleCameraLock()
-		{
-			CameraLock = !CameraLock;
-		}
 
 		private void Awake()
 		{
 			_player = GameObject.FindGameObjectWithTag("Player");
 			_cameraArm = GameObject.FindGameObjectWithTag("CameraArm");
+			_mainCamera = Camera.main;
+
+			CameraLock       = true;
+			Cursor.lockState = CursorLockMode.Locked;
 		}
 
 		private void Start()
 		{
-			Vector3 angles = transform.eulerAngles;
-			_xDeg = angles.x;
-			_yDeg = angles.y;
-
 			_currentDistance = Distance;
 			_desiredDistance = Distance;
 			_correctedDistance = Distance;
@@ -70,65 +58,55 @@
 				_player.GetComponent<Rigidbody>().freezeRotation = true;
 		}
 
-		/// <summary>
-		/// Camera logic on LateUpdate to only update after all character movement logic has been handled.
-		/// </summary>
-		private void Update()
+		private void LateUpdate()
 		{
 			if (CameraLock)
 			{
-				Cursor.lockState = CursorLockMode.Locked;
-				MoveCameraWithMouse();
-			}
-			else
-			{
-				Cursor.lockState = CursorLockMode.None;
+				// Let the mouse govern camera position
+				_currentX += Input.GetAxis("Mouse X") * SensitivityX;
+				_currentY -= Input.GetAxis("Mouse Y") * SensitivityY;
+				_currentY = Mathf.Clamp(_currentY, _minAngleY, _maxAngleY);
+
+				// calculate the desired distance
+				_desiredDistance  -= Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime * ZoomRate * SpeedDistance;
+				_desiredDistance   = Mathf.Clamp(_desiredDistance, MinDistance, MaxDistance);
+				_correctedDistance = _desiredDistance;
+
+				// Calculate desired camera position
+				Vector3 dir         = new Vector3(0f, 0f, -Distance);
+				Quaternion rotation = Quaternion.Euler(_currentY, _currentX, 0f);
+				Vector3 position    = _cameraArm.transform.position + rotation * dir;
+
+				// Check for collision using the true target's desired registration point as set by user using height
+				RaycastHit collisionHit;
+				Vector3 trueTargetPosition = new Vector3(_cameraArm.transform.position.x, _cameraArm.transform.position.y, _cameraArm.transform.position.z);
+
+				// If there was a collision, correct the camera position and calculate the corrected distance
+				bool isCorrected = false;
+				if (Physics.Linecast(trueTargetPosition, position, out collisionHit, CollisionLayers.value))
+				{
+					_correctedDistance = Vector3.Distance(trueTargetPosition, collisionHit.point) - OffsetFromWall;
+					isCorrected = true;
+				}
+
+				// For smoothing, lerp distance only if either distance wasn't corrected, or correctedDistance is more than currentDistance
+				_currentDistance = !isCorrected || _correctedDistance > _currentDistance ? Mathf.Lerp(_currentDistance, _correctedDistance, Time.deltaTime * ZoomDampening) : _correctedDistance;
+
+				// Keep within legal limits
+				_currentDistance = Mathf.Clamp(_currentDistance, MinDistance, MaxDistance);
+
+
+				Vector3 dire = new Vector3(0f, 0f, -_currentDistance);
+
+				_mainCamera.transform.position = _cameraArm.transform.position + rotation * dire;
+				_mainCamera.transform.LookAt(_cameraArm.transform.position);
 			}
 		}
 
-		private void MoveCameraWithMouse()
+		public void ToggleCameraLock()
 		{
-
-			float x = Input.GetAxis("Mouse X") * XSensitivity;
-			float y = Input.GetAxis("Mouse Y") * YSensitivity;
-
-
-			if (Input.GetKeyDown(KeyCode.Mouse1))
-			{
-				// cache camera transforms
-				_cameraArmTransformCache = _cameraArm.transform.rotation;
-				_cameraTransformCache    = transform.rotation;
-			}
-			else if (Input.GetKeyUp(KeyCode.Mouse1))
-			{
-				StartCoroutine("ResetCameraPosition");
-				// reset camera position to default
-				//_cameraArm.transform.rotation = Quaternion.Lerp(_cameraArm.transform.rotation, _cameraArmTransformCache, 5.0f * Time.deltaTime);
-				//transform.rotation  = Quaternion.Lerp(transform.rotation, _cameraTransformCache, 5.0f * Time.deltaTime);
-			}
-
-
-			if (Input.GetKey(KeyCode.Mouse1))
-			{
-				_cameraArm.transform.rotation *= Quaternion.Euler(0f, x, 0f);
-				//transform.rotation            *= Quaternion.Euler(-y, 0f, 0f);
-			}
-			else
-			{
-				_player.transform.rotation *= Quaternion.Euler(0f, x, 0f);
-			}
-
-			//transform.localRotation = Quaternion.Euler(0f, x * 25, 0f);
-		}
-
-		private IEnumerator ResetCameraPosition()
-		{
-			while (Quaternion.Angle(_cameraArm.transform.rotation, _cameraArmTransformCache) > 0.3f)
-			{
-				_cameraArm.transform.rotation = Quaternion.Slerp(_cameraArm.transform.rotation, _cameraArmTransformCache, 2.0f * Time.deltaTime);
-
-				yield return null;
-			}
+			CameraLock = !CameraLock;
+			Cursor.lockState = CameraLock ? CursorLockMode.Locked : CursorLockMode.None;
 		}
 	}
 }

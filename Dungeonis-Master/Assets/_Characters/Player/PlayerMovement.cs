@@ -8,16 +8,19 @@
 	{
 		public float Speed = 10;
 
-		private Camera _cam;
+		[SerializeField] private Camera _cam;
 		private MouseCamera _camComponent;
+		private GameObject _camArm;
 		private bool _jump;
+		private Vector3 _groundNormal;
 
 		private void Start()
 		{
 			if (Camera.main != null)
 			{
-				_cam = Camera.main;
+				_cam          = Camera.main;
 				_camComponent = _cam.GetComponent<MouseCamera>();
+				_camArm       = GameObject.FindGameObjectWithTag("CameraArm");
 			}
 			else
 			{
@@ -40,7 +43,8 @@
 			if (_camComponent.CameraLock)
 			{
 				float horizontalAxis = Input.GetAxis("Horizontal") * Time.deltaTime * Speed;
-				float verticalAxis = Input.GetAxis("Vertical") * Time.deltaTime * Speed;
+				float verticalAxis   = Input.GetAxis("Vertical") * Time.deltaTime * Speed;
+				float mouse = Input.GetAxis("Mouse X");
 
 				if (Input.GetKey(KeyCode.LeftShift))
 				{
@@ -48,8 +52,17 @@
 					verticalAxis *= 0.5f;
 				}
 
-				transform.Translate(horizontalAxis, 0, verticalAxis);
-				Move(new Vector3(horizontalAxis, 0, verticalAxis), false, false);
+				Vector3 movement = verticalAxis * _cam.transform.forward + horizontalAxis * _cam.transform.right;
+				Vector3 actualMovement = new Vector3(movement.x, 0f, movement.z);
+
+				transform.Translate(actualMovement);
+
+				if (horizontalAxis != 0 || verticalAxis != 0)
+				{
+					transform.LookAt(new Vector3());
+				}
+
+				//Move(movementVector, false, _jump); //Redesign PlayerMovementBase when we understand animation + blend trees
 			}
 		}
 	}

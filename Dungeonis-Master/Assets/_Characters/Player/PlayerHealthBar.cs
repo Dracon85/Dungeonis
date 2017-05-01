@@ -7,32 +7,31 @@
 	public class PlayerHealthBar
 		: MonoBehaviour
 	{
-		RawImage healthBarRawImage;
-		Player player;
+		public Text healthDisplay;
+		public Text attackDisplay;
+		public Text magicDisplay;
 
-		// Use this for initialization
-		void Start()
+		private RawImage healthBarRawImage;
+		private Player player;
+
+		private void Start()
 		{
-			player            = FindObjectOfType<Player>();
+			player = FindObjectOfType<Player>();
 			healthBarRawImage = GetComponent<RawImage>();
 		}
 
-	// Update is called once per frame
-	void Update()
-	{
-		float xValue             = -(player.healthAsPercentage / 2f) - 0.5f;
-		var currentHealth = player.localPlayerData._currentHealthPoints;
-		var maxHealth = player.localPlayerData._maxHealthPoints;
-		var physAtk = player.localPlayerData._playerAtkPower;
-		var magAtk = player.localPlayerData._playerMagicAtkPower;
-			string max = (maxHealth.ToString ());
-			string current=(currentHealth.ToString());
-			healthDisplay.text =string.Format(@"{0}/{1}",max,current);
-			string physATK=(physAtk.ToString ());
-			string magATK=(magAtk.ToString ());
-			attackDisplay.text = ("Mag ATK= " + magATK);
-			MagicDisplay.text = ("Phys ATK= " + physATK);
-		healthBarRawImage.uvRect = new Rect(xValue, 0f, 0.5f, 1f);
+		private void Update()
+		{
+			float xValue             = -(player.HealthAsPercentage / 2f) - 0.5f;
+			string currentHealth     = player.CurrentHealthPoints.ToString();
+			string maxHealth         = player.MaxHealthPoints.ToString();
+			string magicAttack       = player.MagicAttackPower.ToString();
+			string physicalAttack    = player.PhysicalAttackPower.ToString();
+
+			healthDisplay.text       = string.Format("{0}/{1}", currentHealth, maxHealth);
+			attackDisplay.text       = string.Format("Mag ATK= {0}", magicAttack);
+			magicDisplay.text        = string.Format("Phys ATK= {0}", physicalAttack);
+			healthBarRawImage.uvRect = new Rect(xValue, 0f, 0.5f, 1f);
+		}
 	}
-}
 }

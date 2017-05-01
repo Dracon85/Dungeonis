@@ -19,7 +19,7 @@
 		// Update is called once per frame
 		void Update()
 		{
-			float xValue = -(enemy.MaxHealthPoints / 2f) - 0.5f;
+			float xValue = -(enemy.HealthAsPercentage / 2f) - 0.5f;
 			healthBarRawImage.uvRect = new Rect(xValue, 0f, 0.5f, 1f);
 		}
 	}

@@ -4,15 +4,8 @@
 	using RPG.UtilScripts;
 
 	public class CharacterBase
-		: MonoBehaviour, IDamageable
+		: CharacterStatistics, IDamageable
 	{
-		public float MaxHealthPoints;
-		public float AttackPower;
-		public float ShotDelay;
-
-		[SerializeField] protected float AttackRange;
-		[SerializeField] protected float CurrentHealthPoints;
-
 		/// <summary>
 		/// Gets the health as percentage.
 		/// </summary>
