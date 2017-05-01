@@ -1,44 +1,45 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-//TODO consider rewiring...
-using RPG.UtilScripts;
-
-namespace RPG.Weapons{
-public class Projectile
-	: MonoBehaviour
+﻿namespace RPG.Weapons
 {
+	using UnityEngine;
+	//TODO consider rewiring...
+	using RPG.UtilScripts;
 
-	[SerializeField] float projectileSpeed;
-	//inspectable to see who shot the projectile when paused
-	[SerializeField] GameObject shooter;
-	public float SpellDamageModifier=1;
-	public float projectileDuration=5f;
-	float damageCaused;
-
-	public void SetShooter(GameObject shooter){
-		this.shooter = shooter;
-	}
-
-	void Update()
+	public class Projectile
+		: MonoBehaviour
 	{
-		Object.Destroy(gameObject, projectileDuration);
-	}
+		public float SpellDamageModifier = 1;
 
-	public void SetDamage(float damage)
-	{
-		damageCaused = damage;
-	}
+		[SerializeField] private float _projectileSpeed;
+		[SerializeField] private float _projectileDuration = 5f;
+		[SerializeField] private GameObject _shooter;
+		private float _damageCaused;
 
-	public float GetDefaultLaunchSpeed(){
-		return projectileSpeed;
-	}
+		public void SetShooter(GameObject shooter)
+		{
+			_shooter = shooter;
+		}
 
-	void OnCollisionEnter(Collision collision)
-	{
-		Component damageableComponent = collision.gameObject.GetComponent (typeof(IDamageable));
-		if (damageableComponent)
-			(damageableComponent as IDamageable).TakeDamage (damageCaused);
+		public void SetDamage(float damage)
+		{
+			_damageCaused = damage;
+		}
+
+		public float GetDefaultLaunchSpeed()
+		{
+			return _projectileSpeed;
+		}
+
+		private void Update()
+		{
+			Destroy(gameObject, _projectileDuration);
+		}
+
+		private void OnCollisionEnter(Collision collision)
+		{
+			Component damageableComponent = collision.gameObject.GetComponent(typeof(IDamageable));
+
+			if (damageableComponent)
+				(damageableComponent as IDamageable).TakeDamage(_damageCaused);
 		}
 	}
 }

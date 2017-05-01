@@ -1,7 +1,8 @@
-using UnityEngine;
+// TODO - understand how animation works then we can remove this script
 
-namespace RPG.Characters
+namespace UnityStandardAssets.Characters.ThirdPerson
 {
+	using UnityEngine;
 	[RequireComponent(typeof(Rigidbody))]
 	[RequireComponent(typeof(CapsuleCollider))]
 	[RequireComponent(typeof(Animator))]
