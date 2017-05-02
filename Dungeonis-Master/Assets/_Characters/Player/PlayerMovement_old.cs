@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using UnityStandardAssets.Characters.ThirdPerson;
 
-namespace RPG.Characters.old
+namespace RPG.Characters
 {
 	[RequireComponent(typeof(ThirdPersonCharacter))]
-	public class PlayerMovement
+	public class PlayerMovement_old
 		: MonoBehaviour
 	{
 		public float speed = 10;

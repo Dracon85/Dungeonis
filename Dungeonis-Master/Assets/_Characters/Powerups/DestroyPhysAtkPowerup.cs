@@ -16,7 +16,7 @@
 		void OnCollisionEnter(Collision collision)
 		{
 			//layer number of enemy in project settings
-			if (collision.gameObject.layer == (int)Layer.Enemy)
+			if (collision.gameObject.layer == (int)Layer.Player)
 			{
 				player.PhysicalAttackPower += Random.Range(5, 25);
 				player.SavePlayer();

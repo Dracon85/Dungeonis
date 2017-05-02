@@ -29,13 +29,13 @@
 				Destroy(gameObject);
 		}
 
-		private void Awake()
-		{
-			MaxHealthPoints = 100f;
-			CurrentHealthPoints = MaxHealthPoints;
-			AttackRange = 2f;
-			ShotDelay = 1f;
-		}
+//		private void Awake()
+//		{
+//			MaxHealthPoints = 100f;
+//			CurrentHealthPoints = MaxHealthPoints;
+//			AttackRange = 2f;
+//			ShotDelay = 1f;
+//		}
 
 		private void Start()
 		{

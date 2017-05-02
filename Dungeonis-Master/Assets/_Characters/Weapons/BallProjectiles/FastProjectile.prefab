@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpellDamageModifier: 1
-  _projectileSpeed: 10
+  _projectileSpeed: 20
   _projectileDuration: 5
   _shooter: {fileID: 0}
 --- !u!135 &135889482090461418

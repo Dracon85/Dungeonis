@@ -6,7 +6,6 @@
 		: MonoBehaviour
 	{
 		public float MaxHealthPoints;
-		public float AttackPower;
 		public float AttackRange;
 		public float ShotDelay;
 		public float CurrentHealthPoints;

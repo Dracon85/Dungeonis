@@ -2269,8 +2269,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1353262310993696}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.539429, y: 0, z: 14.611816}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -225.53119, y: -2.8886719, z: -174.45798}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4284665660123358}
@@ -2601,11 +2601,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8caf364956b52f4789efbb5f82d41fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealthPoints: 60
-  blueAggroRadius: 5
-  redAttackRange: 2
-  damagePerShot: 5
-  shotDelay: 1
+  MaxHealthPoints: 80
+  AttackPower: 10
+  AttackRange: 4
+  ShotDelay: 1
+  CurrentHealthPoints: 0
+  ExperiencePoints: 0
+  PhysicalAttackPower: 0
+  MagicAttackPower: 0
+  _noticeRange: 5
+  damagePerShot: 10
   aimOffset: {x: 0, y: 1, z: 0}
   projectileToUse: {fileID: 1350393961698862, guid: 5d87b2ae5c9d1e84d823ba3e80f05e34,
     type: 2}
@@ -2616,7 +2621,7 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1353262310993696}
-  m_Material: {fileID: 13400000, guid: e52fb17f9b1e7fd48b8955f1391d3688, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -2653,6 +2658,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
@@ -2766,6 +2772,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
@@ -2798,6 +2805,7 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1353262310993696}
   m_Enabled: 1
+  m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 7
   m_Acceleration: 15
