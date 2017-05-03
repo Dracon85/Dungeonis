@@ -22,16 +22,7 @@
 		{
 			_respawnPoint = GameObject.FindGameObjectWithTag("PlayerRespawn");
 			transform.position = _respawnPoint.transform.position;
-
-			MaxHealthPoints     = 100f;
-			AttackPower         = 10f;
-			AttackRange         = 5f;
-			ShotDelay           = 0.5f;
-			CurrentHealthPoints = MaxHealthPoints;
-			ExperiencePoints    = 0;
-			MagicAttackPower    = 5f;
-			PhysicalAttackPower = 5f;
-	}
+}
 
 		private void Start()
 		{
@@ -49,7 +40,7 @@
 		public override void TakeDamage(float damage)
 		{
 			CurrentHealthPoints = Mathf.Clamp(CurrentHealthPoints - damage, 0f, MaxHealthPoints);
-
+			SavePlayer ();
 			if (IsCharacterDead())
 			{
 				transform.position = _respawnPoint.transform.position;
@@ -79,10 +70,11 @@
 		public void LoadPlayer()
 		{
 			MaxHealthPoints     = GlobalControl.Instance.MaxHealthPoints;
-			AttackPower         = GlobalControl.Instance.AttackPower;
 			ShotDelay           = GlobalControl.Instance.ShotDelay;
 			CurrentHealthPoints = GlobalControl.Instance.CurrentHealthPoints;
 			AttackRange         = GlobalControl.Instance.AttackRange;
+			PhysicalAttackPower = GlobalControl.Instance.PhysicalAttackPower;
+			MagicAttackPower 	= GlobalControl.Instance.MagicAttackPower;
 			ExperiencePoints    = GlobalControl.Instance.ExperiencePoints;
 		}
 
@@ -149,7 +141,7 @@
 			if ((Time.time - _lastHitTime) > _weaponInUse.GetMinTimeBetweenHits())
 			{
 				animator.SetTrigger("Attack"); //TODO make const
-				enemyComponent.TakeDamage(AttackPower);
+				enemyComponent.TakeDamage(PhysicalAttackPower);
 				_lastHitTime = Time.time;
 			}
 		}

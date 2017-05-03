@@ -196,7 +196,7 @@ GameObject:
   - component: {fileID: 222495761924940210}
   - component: {fileID: 114123880903282262}
   - component: {fileID: 82463073808773156}
-  - component: {fileID: 114995821218909216}
+  - component: {fileID: 114001528404132130}
   m_Layer: 5
   m_Name: Ability1
   m_TagString: Untagged
@@ -398,6 +398,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114001528404132130
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1727697212071724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97518ad8e0478a045bb0b0065bbd8d58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityButtonAxisName: Fire1
+  darkMask: {fileID: 114363831898892014}
+  coolDownTextDisplay: {fileID: 114237536705854796}
+  ability: {fileID: 11400000, guid: 8412a80ce24d55a488ece03490d7b423, type: 2}
+  weaponHolder: {fileID: 0}
 --- !u!114 &114123880903282262
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -479,8 +495,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthDisplay: {fileID: 114338141419750848}
-  attackDisplay: {fileID: 114530261691996544}
-  MagicDisplay: {fileID: 114489321160351590}
+  attackDisplay: {fileID: 114489321160351590}
+  magicDisplay: {fileID: 114530261691996544}
 --- !u!114 &114237536705854796
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -824,22 +840,6 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: Hold right mouse button to pan camera. Scroll wheel to zoom. Press 1 to
     shoot.
---- !u!114 &114995821218909216
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1727697212071724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97518ad8e0478a045bb0b0065bbd8d58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityButtonAxisName: Fire1
-  darkMask: {fileID: 114363831898892014}
-  coolDownTextDisplay: {fileID: 114237536705854796}
-  ability: {fileID: 11400000, guid: 8412a80ce24d55a488ece03490d7b423, type: 2}
-  weaponHolder: {fileID: 0}
 --- !u!222 &222092061733715326
 CanvasRenderer:
   m_ObjectHideFlags: 1
