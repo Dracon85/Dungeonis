@@ -2248,6 +2248,36 @@ Prefab:
       propertyPath: weaponHolder
       value: 
       objectReference: {fileID: 1374255290}
+    - target: {fileID: 114489321160351590, guid: 75a43cca039264395b99698681e52275,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0.0647167
+      objectReference: {fileID: 0}
+    - target: {fileID: 114489321160351590, guid: 75a43cca039264395b99698681e52275,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0.8267867
+      objectReference: {fileID: 0}
+    - target: {fileID: 114489321160351590, guid: 75a43cca039264395b99698681e52275,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0.97794116
+      objectReference: {fileID: 0}
+    - target: {fileID: 114530261691996544, guid: 75a43cca039264395b99698681e52275,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114530261691996544, guid: 75a43cca039264395b99698681e52275,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114530261691996544, guid: 75a43cca039264395b99698681e52275,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0.10344792
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 75a43cca039264395b99698681e52275, type: 2}
   m_IsPrefabParent: 0
