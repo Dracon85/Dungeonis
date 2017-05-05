@@ -110,10 +110,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0384f81791cd5c24cb89169d7c1e9459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpeed: 0
-  shooter: {fileID: 0}
-  SpellDamageModifier: 2
-  projectileDuration: 5
+  SpellDamageModifier: 0
+  _projectileSpeed: 0
+  _projectileDuration: 8
+  _shooter: {fileID: 0}
 --- !u!114 &114835178607044706
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -125,8 +125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f65b1467831b2c4f99835ca6abb87ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 10
-  power: 20
 --- !u!135 &135359799645195500
 SphereCollider:
   m_ObjectHideFlags: 1

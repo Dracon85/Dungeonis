@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 720f6c8ac1602ec4ba8b179d2bb8f59b, type: 3}
+  m_Name: SwordHit
+  m_EditorClassIdentifier: 
+  aName: BasicAttack
+  aSprite: {fileID: 21300000, guid: 6818d26a7a35fc445b5ba04d9bacb27b, type: 3}
+  aSound: {fileID: 0}
+  aBaseCoolDown: 0.5
+  projectileForce: 10
+  projectile: {fileID: 54502942369058188, guid: c8b64729e6980344db715580f0f8f043,
+    type: 2}
+  MartialDmgModifier: 0.5

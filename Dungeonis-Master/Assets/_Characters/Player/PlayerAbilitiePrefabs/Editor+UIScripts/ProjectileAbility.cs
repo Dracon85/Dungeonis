@@ -8,7 +8,7 @@ public class ProjectileAbility : Ability {
 
 	public float projectileForce = 500f;
 	public Rigidbody projectile;
-	public float SpellDamageModifier;
+	public float SpellDmgModifier=1;
 
 	private ProjectileShootTriggerable launcher;
 
@@ -17,6 +17,7 @@ public class ProjectileAbility : Ability {
 		launcher = obj.GetComponent<ProjectileShootTriggerable> ();
 		launcher.projectileForce = projectileForce;
 		launcher.projectile = projectile;
+		launcher.SpellDmgModifier = SpellDmgModifier;
 	}
 
 	public override void TriggerAbility()

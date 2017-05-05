@@ -56,5 +56,5 @@ MonoBehaviour:
   ShotDelay: 3
   CurrentHealthPoints: 100
   ExperiencePoints: 0
-  PhysicalAttackPower: 75
-  MagicAttackPower: 150
+  PhysicalAttackPower: 25
+  MagicAttackPower: 25
