@@ -2595,7 +2595,7 @@ MonoBehaviour:
   PhysicalAttackPower: 0
   MagicAttackPower: 0
   _noticeRange: 10
-  damagePerShot: 10
+  damagePerShot: 20
   aimOffset: {x: 0, y: 1, z: 0}
   projectileToUse: {fileID: 1350393961698862, guid: f7c22fa92c948cd4d9ebe0d266d3d047,
     type: 2}

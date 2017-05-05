@@ -29,7 +29,6 @@
 		private Vector3 _groundNormal;
 		private float _capsuleHeight;
 		private Vector3 _capsuleCenter;
-		private Vector3 _GroundNormal;
 
 		public void Move(Vector3 move, bool crouch, bool jump)
 		{
@@ -41,7 +40,7 @@
 			_turnAmount    = Mathf.Atan2(move.x, move.z);
 			_forwardAmount = move.magnitude;
 
-			Vector3 projectedMove = Vector3.ProjectOnPlane(move, _GroundNormal);
+			Vector3 projectedMove = Vector3.ProjectOnPlane(move, _groundNormal);
 			_turnAmount = Mathf.Atan2(projectedMove.x, projectedMove.z);
 
 
