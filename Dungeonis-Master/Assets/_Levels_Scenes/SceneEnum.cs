@@ -11,7 +11,8 @@
 	public enum SceneIndexes
 	{
 		LoadingScene,
+		TrialDungeon,
 		Town1,
-		TrialDungeon
+
 	}
 }

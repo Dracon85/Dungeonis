@@ -43,8 +43,22 @@
 			SavePlayer ();
 			if (IsCharacterDead())
 			{
+				print ("player died");
+				decreaseStats ();
 				transform.position = _respawnPoint.transform.position;
 				CurrentHealthPoints = MaxHealthPoints;
+			}
+		}
+		//decrease stats when dead up to a certain point
+		private void decreaseStats(){
+			if (MaxHealthPoints>100){
+				MaxHealthPoints -= Random.Range(10, 15);
+			}
+			if(PhysicalAttackPower>15){
+				PhysicalAttackPower -= Random.Range(5, 15);
+			}
+			if (MagicAttackPower>20){
+				MagicAttackPower -= Random.Range(5, 15);
 			}
 		}
 

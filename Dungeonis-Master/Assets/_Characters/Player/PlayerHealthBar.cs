@@ -29,8 +29,8 @@
 			string physicalAttack    = player.PhysicalAttackPower.ToString();
 
 			healthDisplay.text       = string.Format("{0}/{1}", currentHealth, maxHealth);
-			attackDisplay.text       = string.Format("Mag ATK= {0}", magicAttack);
-			magicDisplay.text        = string.Format("Phys ATK= {0}", physicalAttack);
+			attackDisplay.text       = string.Format("Magery= {0}", magicAttack);
+			magicDisplay.text        = string.Format("Martial Skill= {0}", physicalAttack);
 			healthBarRawImage.uvRect = new Rect(xValue, 0f, 0.5f, 1f);
 		}
 	}
