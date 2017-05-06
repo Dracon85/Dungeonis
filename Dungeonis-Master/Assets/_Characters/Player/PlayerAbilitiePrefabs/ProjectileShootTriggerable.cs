@@ -8,6 +8,7 @@
 	{
 		[HideInInspector] public float projectileForce = 250f;	// Float variable to hold the amount of force which we will apply to launch our projectiles
 		[HideInInspector] public Rigidbody projectile;          // Rigidbody variable to hold a reference to our projectile prefab
+		[HideInInspector] public float SpellDmgModifier;
 		public Transform bulletSpawn;							// Transform variable to hold the location where we will spawn our projectile
 		private Transform _cam;
 		public Player player;
@@ -28,7 +29,7 @@
 			Projectile projectileComponent = clonedBullet.GetComponent<Projectile>();
 
 			//use damage set on player in inspector and shoot at mouse position
-			float damagePerShot = player.MagicAttackPower * projectileComponent.SpellDamageModifier;
+			float damagePerShot = player.MagicAttackPower * SpellDmgModifier;
 			projectileComponent.SetDamage(damagePerShot);
 
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

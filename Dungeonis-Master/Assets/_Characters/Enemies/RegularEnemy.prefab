@@ -2602,14 +2602,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealthPoints: 80
-  AttackPower: 10
   AttackRange: 4
   ShotDelay: 1
   CurrentHealthPoints: 0
   ExperiencePoints: 0
   PhysicalAttackPower: 0
   MagicAttackPower: 0
-  _noticeRange: 5
+  _noticeRange: 18
   damagePerShot: 10
   aimOffset: {x: 0, y: 1, z: 0}
   projectileToUse: {fileID: 1350393961698862, guid: 5d87b2ae5c9d1e84d823ba3e80f05e34,

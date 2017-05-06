@@ -24,7 +24,7 @@
 
 		[Header("Other")]
 		[SerializeField] public static int LoadSceneIndex = -1;
-		[SerializeField] public static int LoadingSceneIndex = 0; /* This value comes from the Build Settings and is the "LoadingScene" */
+		[SerializeField] public static int LoadingSceneIndex = 1; /* This value comes from the Build Settings and is the "LoadingScene" */
 
 		private AsyncOperation operation;
 
@@ -47,7 +47,7 @@
 
 		private void Start()
 		{
-			if (LoadSceneIndex < 0)
+			if (LoadSceneIndex < 1&&LoadSceneIndex!=0)
 				return;
 
 			_fadeOverlay.gameObject.SetActive(true);

@@ -18,7 +18,7 @@
 			//layer number of enemy in project settings
 			if (collision.gameObject.layer == (int)Layer.Player)
 			{
-				player.PhysicalAttackPower += Random.Range(6, 20);
+				player.PhysicalAttackPower += Random.Range(2, 10);
 				player.SavePlayer();
 				Destroy(gameObject);
 			}

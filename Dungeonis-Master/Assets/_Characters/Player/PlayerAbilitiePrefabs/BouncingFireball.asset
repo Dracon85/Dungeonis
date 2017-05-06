@@ -14,8 +14,8 @@ MonoBehaviour:
   aName: BouncingFireball
   aSprite: {fileID: 21300000, guid: 96dc0375f9574a3438c3c682ce6c2ef6, type: 3}
   aSound: {fileID: 0}
-  aBaseCoolDown: 1
+  aBaseCoolDown: 0.5
   projectileForce: 50
   projectile: {fileID: 54468475436827100, guid: 6875dc528bae20e479f96c3b7cae4e3c,
     type: 2}
-  SpellDamageModifier: 2
+  SpellDmgModifier: 0.5

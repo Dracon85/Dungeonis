@@ -18,4 +18,4 @@ MonoBehaviour:
   projectileForce: 1
   projectile: {fileID: 54468475436827100, guid: 5e5f5d3916c739c4ead1045005ab00eb,
     type: 2}
-  SpellDamageModifier: 0
+  SpellDmgModifier: 0

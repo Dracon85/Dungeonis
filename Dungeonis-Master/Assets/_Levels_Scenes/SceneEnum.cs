@@ -10,8 +10,8 @@
 	/// </summary>
 	public enum SceneIndexes
 	{
-		LoadingScene,
 		TrialDungeon,
+		LoadingScene,
 		Town1,
 
 	}
