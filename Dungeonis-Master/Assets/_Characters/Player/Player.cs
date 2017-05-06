@@ -51,14 +51,14 @@
 		}
 		//decrease stats when dead up to a certain point
 		private void decreaseStats(){
-			if (MaxHealthPoints>100){
+			if (MaxHealthPoints>150){
 				MaxHealthPoints -= Random.Range(10, 15);
 			}
-			if(PhysicalAttackPower>15){
-				PhysicalAttackPower -= Random.Range(5, 15);
+			if(PhysicalAttackPower>25){
+				PhysicalAttackPower -= Random.Range(2, 10);
 			}
-			if (MagicAttackPower>20){
-				MagicAttackPower -= Random.Range(5, 15);
+			if (MagicAttackPower>25){
+				MagicAttackPower -= Random.Range(2, 8);
 			}
 		}
 

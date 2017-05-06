@@ -1972,7 +1972,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1750315129372806}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12.510315, y: -6.6243753, z: 4.376877}
+  m_LocalPosition: {x: -49.629684, y: -2.734375, z: 47.496872}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4000545172501688}
@@ -2355,7 +2355,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1138072741621212}
-  m_LocalRotation: {x: 0.5326752, y: 0.070340455, z: 0.83613276, w: -0.110415146}
+  m_LocalRotation: {x: 0.53267515, y: 0.07034045, z: 0.83613265, w: -0.11041513}
   m_LocalPosition: {x: 0.000022271464, y: -0.00006150465, z: 0.026027026}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2558,7 +2558,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!95 &95872756198597610
 Animator:
   serializedVersion: 3
@@ -2629,13 +2629,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealthPoints: 100
-  AttackRange: 5
+  AttackRange: 6
   ShotDelay: 1
   CurrentHealthPoints: 0
   ExperiencePoints: 0
   PhysicalAttackPower: 0
   MagicAttackPower: 0
-  _noticeRange: 6
+  _noticeRange: 15
   damagePerShot: 15
   aimOffset: {x: 0, y: 1, z: 0}
   projectileToUse: {fileID: 1350393961698862, guid: 5d87b2ae5c9d1e84d823ba3e80f05e34,

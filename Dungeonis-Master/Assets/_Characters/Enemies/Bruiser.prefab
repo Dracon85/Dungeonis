@@ -2087,7 +2087,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1799840150848704}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -151.86215, y: -2.8886719, z: -144.7624}
+  m_LocalPosition: {x: -190.15295, y: 1.8174286, z: -170.88312}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4248921538218722}
@@ -2594,7 +2594,7 @@ MonoBehaviour:
   ExperiencePoints: 0
   PhysicalAttackPower: 15
   MagicAttackPower: 0
-  _noticeRange: 5
+  _noticeRange: 14
   damagePerShot: 20
   aimOffset: {x: 0, y: 1, z: 0}
   projectileToUse: {fileID: 1350393961698862, guid: 5d87b2ae5c9d1e84d823ba3e80f05e34,
